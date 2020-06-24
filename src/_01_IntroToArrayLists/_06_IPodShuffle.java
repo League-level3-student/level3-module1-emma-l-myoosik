@@ -1,14 +1,27 @@
 package _01_IntroToArrayLists;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 //Copyright The League of Amazing Programmers, 2015
 
-public class _06_IPodShuffle{
+public class _06_IPodShuffle implements ActionListener {
+	ArrayList<Song> songList = new ArrayList<Song>();
+	
+	Song song1 = new Song("BTS 'Black Swan' Official MV.mp3");
+	Song song2 = new Song("demo.mp3");
+	
 	public _06_IPodShuffle() {
 		// 1. Use the Song class the play the demo.mp3 file.
+//		Song song = new Song("demo.mp3");
+//		song.play();
 				
 				
 		/**
@@ -19,9 +32,40 @@ public class _06_IPodShuffle{
 		 * subsequent button clicks.
 		 */
 		
+		songList.add(song1);
+		//songList.add(new Song("http://freedownloads.last.fm/download/569264057/Get%2BGot.mp3"));
+		songList.add(song2);
+		
+		JFrame frame = new JFrame();
+		
+		frame.setVisible(true);
+		JPanel panel = new JPanel();
+		JButton surpriseMe = new JButton("Surprise Me!");
+		
+		surpriseMe.addActionListener(this);
+		
+		panel.add(surpriseMe);
+		frame.add(panel);
+		
+		frame.pack();
+		
 	}
 	
 	public static void main(String[] args) {
 		new _06_IPodShuffle();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		Song theSong = songList.get(rand.nextInt(songList.size()));
+		if (theSong == song1) {
+			song2.stop();
+			song1.play();
+		} else if (theSong == song2) {
+			song1.stop();
+			song2.play();
+		}
 	}
 }

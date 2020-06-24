@@ -13,7 +13,7 @@ package _01_IntroToArrayLists;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 public class _03_MurderOfCrows {
 
@@ -30,8 +30,18 @@ public class _03_MurderOfCrows {
          * 1. One of the Crows has eaten the diamond. You need to search through the stomach of each Crow, 
          * then print the name of the guilty Crow.
          */
+    	int innocentDeaths = 0;
+    	for (int i = 0; i < theMurder.size(); i++) {
+    		ArrayList<String> stomachContent = theMurder.get(i).getStomachContents();
+    		if (stomachContent.size() > 10) {
+    			System.out.println(theMurder.get(i).getName());
+    			break;
+    		}
+			innocentDeaths++;
+		}
         
         /* 2. How many innocent crows had to die before the diamond was found? */
+    	System.out.println(innocentDeaths + " crows had to die before the diamond was found.");
     	
     }
 
