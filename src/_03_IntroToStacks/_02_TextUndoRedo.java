@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class _02_TextUndoRedo implements KeyListener {
-	Stack<String> deleted = new Stack<String>();
 	/* 
 	 * Create a JFrame with a JPanel and a JLabel.
 	 * 
@@ -26,21 +25,57 @@ public class _02_TextUndoRedo implements KeyListener {
 	JPanel panel = new JPanel();
 	
 	JLabel label = new JLabel();
+	
+	String text = "You typed: ";
+	Stack<Character> deleted = new Stack<Character>();
+	
+	void run() {
+		frame.setVisible(true);
+		
+		frame.addKeyListener(this);
+		
+		label.setText(text);
+		
+		panel.add(label);
+		frame.add(panel);
+		
+		frame.pack();
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		char ch = e.getKeyChar();
+		String key = Character.toString(ch);
 		
+		text += key;
+		
+		label.setText(text);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyCode()==KeyEvent.VK_HOME) {
-			char ch = e.getKeyChar();
-			String key = Character.toString(ch);
-			label.add(key, label);
+		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			char deletedChar = text.charAt(text.length() - 1);
+			deleted.push(deletedChar);
+			
+			String newText = text.substring(0, text.length() - 2);
+			System.out.println(newText);
+			text = newText;
+			label.setText(text);
+			
 		}
+			else if (e.getKeyCode() == KeyEvent.VK_UP) {
+			char character = deleted.get(0);
+			for (int i = 0; i < deleted.size(); i++) {
+				System.out.println(Character.toString(deleted.get(i)));
+			}
+			deleted.pop();
+			text += character;
+			label.setText(text);
+		}
+		
 	}
 
 	@Override
@@ -49,5 +84,9 @@ public class _02_TextUndoRedo implements KeyListener {
 		
 	}
 	
+	public static void main(String[] args) {
+		_02_TextUndoRedo text = new _02_TextUndoRedo();
+		text.run();
+	}
 	
 }
