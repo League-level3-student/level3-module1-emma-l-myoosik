@@ -60,18 +60,18 @@ public class _02_TextUndoRedo implements KeyListener {
 			char deletedChar = text.charAt(text.length() - 1);
 			deleted.push(deletedChar);
 			
-			String newText = text.substring(0, text.length() - 2);
+			String newText = text.substring(0, text.length() - 1);
 			System.out.println(newText);
 			text = newText;
 			label.setText(text);
+			System.out.println(text);
 			
 		}
 			else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			char character = deleted.get(0);
+			char character = deleted.pop();
 			for (int i = 0; i < deleted.size(); i++) {
 				System.out.println(Character.toString(deleted.get(i)));
 			}
-			deleted.pop();
 			text += character;
 			label.setText(text);
 		}

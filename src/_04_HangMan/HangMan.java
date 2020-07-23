@@ -14,7 +14,7 @@ public class HangMan implements KeyListener {
 	
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
-	JLabel label = new JLabel();
+	JLabel label;
 	
 	boolean checkLetter(String l, String word) {
 		if(word.indexOf(l) == -1) {
@@ -39,13 +39,14 @@ public class HangMan implements KeyListener {
 			}
 		}
 		
+		int numLives = 0;
 		for (int i = 0; i < words.size(); i++) {
-			String word = words.get(i);
+			String word = words.pop();
 			String blanks = "";
 			for (int j = 0; j < word.length(); j++) {
 				blanks += "- ";
 			}
-			label.add(blanks, label);
+			label = new JLabel(blanks);
 			
 			panel.add(label);
 			frame.add(panel);
